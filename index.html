@@ -13,7 +13,9 @@
 
 <body>
 	<div style="background-image: url('image/snowsnow.gif');">
-
+		<audio autoplay loop  id="playAudio">
+			<source src="image/銀河與星鬥.mp3">
+		</audio>
 
 		<div id=text
 			style="font-family: Georgia, 'Times New Roman', 'FangSong', '??', STFangSong, '????', serif;text-align:center;padding-top: 50%; font-size: 45px;color: azure;">
@@ -23,9 +25,8 @@
 			<button id="yes" style="margin-right: 50px;">Yes</button><button id="no"
 				style="margin-left: 30px;">No</button>
 		</div>
-
-		<div id="sad"
-			style="display: block;margin-left: auto;margin-right: auto;width: 50%;padding-bottom: 50%;visibility: hidden;">
+		
+		<div id="sad" style="display: block;margin-left: auto;margin-right: auto;width: 50%;padding-bottom: 50%;visibility: hidden;">
 			<div id="mdiv">
 				<div class="mdiv">
 					<div class="md"></div>
@@ -46,8 +47,6 @@
 	crossorigin="anonymous"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
-<script src="js/vue.js"></script>
-<script src="js/app.js"></script>
 
 <script type="text/javascript">
 
@@ -60,20 +59,6 @@
 	};
 	firebase.initializeApp(firebaseConfig);
 	var db = firebase.firestore();
-
-	const vm = new Vue({
-		el: '#app',
-		data: {
-			history: []
-		},
-		created() {
-			var audio = new Audio('image/銀河與星鬥.mp3').play();
-		}
-
-	});
-
-
-
 </script>
 
 <script type="text/javascript">
@@ -125,7 +110,7 @@
 			$("#yes").css('visibility', 'hidden');
 		});
 
-		$('#mdiv').click(function () {
+		$('#mdiv').click(function(){
 			$("#sad").css('visibility', 'hidden');
 			$("#no").css('visibility', 'visible');
 			$("#yes").css('visibility', 'visible');
