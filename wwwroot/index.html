@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<link rel="stylesheet" href="css/styles.css">
+	<link rel="shortcut icon" href="image/jiaqi.jpg">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+		integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+	<title>TO : 逗比 王佳淇</title>
+</head>
+
+<body>
+	<div style="background-image: url('image/snowsnow.gif');">
+		<audio autoplay loop  id="playAudio">
+			<source src="image/銀河與星鬥.mp3">
+		</audio>
+
+		<div id=text
+			style="font-family: Georgia, 'Times New Roman', 'FangSong', '??', STFangSong, '????', serif;text-align:center;padding-top: 50%; font-size: 45px;color: azure;">
+		</div>
+		<div id="confirm"
+			style="padding-left: 35%;position:sticky;padding-top: 5%; font-size: 45px;color: azure;visibility:hidden;">
+			<button id="yes" style="margin-right: 50px;">Yes</button><button id="no"
+				style="margin-left: 30px;">No</button>
+		</div>
+		
+		<div id="sad" style="display: block;margin-left: auto;margin-right: auto;width: 50%;padding-bottom: 50%;visibility: hidden;">
+			<div id="mdiv">
+				<div class="mdiv">
+					<div class="md"></div>
+				</div>
+			</div>
+			<img src="image/sad.png">
+		</div>
+	</div>
+</body>
+
+<footer>Copyrighted &copy; 2021 &middot;Developed by <b>Steven Chan</b></footer>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+	integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+	crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+	integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+	crossorigin="anonymous"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+
+<script type="text/javascript">
+
+	var firebaseConfig = {
+		apiKey: "AIzaSyADvCv5vTustiJ95Za3y7DACyeqLN5Mols",
+		authDomain: "chanhy-981018.firebaseapp.com",
+		projectId: "chanhy-981018",
+		appId: "1:738924707300:web:5f3703002951e547419bf1",
+
+	};
+	firebase.initializeApp(firebaseConfig);
+	var db = firebase.firestore();
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		var count = 1;
+		var text = '';
+		var size = 0;
+		$('#text').text('Click here');
+
+		db.collection("forher").get().then(snap => {
+			size = snap.size // will return the collection size
+		});
+
+		$("#text").click(function () {
+			db.collection("forher").doc(count.toString()).get().then(function (doc) {
+				text = doc.data().msg;
+			});
+			$("#text").fadeOut(function () {
+				$("#text").text(text).fadeIn('3000');
+				if (count == size) {
+					$("#confirm").css('visibility', 'visible');
+				} else {
+					count++;
+				}
+			});
+		});
+
+		$("#yes").click(function () {
+			db.collection("ongjiaqi").doc("She").set({
+				name: "JiaQi",
+				response: "Yes",
+			});
+
+			$("#no").css('visibility', 'hidden');
+			$("#yes").css('visibility', 'hidden');
+			$("#text").fadeOut(function () {
+				$("#text").text("微信发个柴犬给我吧。").fadeIn('3000');
+			});
+		});
+
+		$("#no").click(function () {
+			db.collection("ongjiaqi").doc("She").set({
+				name: "JiaQi",
+				response: "No",
+			});
+
+			$("#sad").css('visibility', 'visible');
+			$("#no").css('visibility', 'hidden');
+			$("#yes").css('visibility', 'hidden');
+		});
+
+		$('#mdiv').click(function(){
+			$("#sad").css('visibility', 'hidden');
+			$("#no").css('visibility', 'visible');
+			$("#yes").css('visibility', 'visible');
+		});
+	})
+</script>
+
+</html>
